@@ -1,0 +1,121 @@
+sources:
+  - name: cnn_top_stories
+    category: top_breaking
+    enabled: true
+    access_type: rss
+    url: http://rss.cnn.com/rss/cnn_topstories.rss
+
+  - name: fox_latest
+    category: top_breaking
+    enabled: true
+    access_type: rss
+    url: https://feeds.foxnews.com/foxnews/latest
+
+  - name: cnn_politics
+    category: politics
+    enabled: true
+    access_type: rss
+    url: http://rss.cnn.com/rss/cnn_allpolitics.rss
+
+  - name: fox_politics
+    category: politics
+    enabled: true
+    access_type: rss
+    url: https://feeds.foxnews.com/foxnews/politics
+
+  - name: cnn_business_markets
+    category: business_markets
+    enabled: true
+    access_type: rss
+    url: http://rss.cnn.com/rss/money_latest.rss
+
+  - name: fox_business
+    category: business_markets
+    enabled: true
+    access_type: rss
+    url: https://feeds.foxnews.com/foxnews/business
+
+  - name: cnn_tech_science
+    category: tech_science
+    enabled: true
+    access_type: rss
+    url: http://rss.cnn.com/rss/cnn_tech.rss
+
+  - name: fox_science_tech
+    category: tech_science
+    enabled: true
+    access_type: rss
+    url: https://feeds.foxnews.com/foxnews/scitech
+
+  - name: cnn_health_life
+    category: health_life
+    enabled: true
+    access_type: rss
+    url: http://rss.cnn.com/rss/cnn_health.rss
+
+  - name: fox_lifestyle
+    category: health_life
+    enabled: true
+    access_type: rss
+    url: https://feeds.foxnews.com/foxnews/lifestyle
+
+  - name: ars_technica
+    category: tech_science
+    enabled: true
+    access_type: rss
+    url: http://feeds.arstechnica.com/arstechnica/index
+
+  - name: hacker_news
+    category: tech_science
+    enabled: true
+    access_type: rss
+    url: https://news.ycombinator.com/rss
+
+  - name: the_verge
+    category: tech_science
+    enabled: true
+    access_type: rss
+    url: https://www.theverge.com/rss/index.xml
+
+  - name: golf_channel_news
+    category: golf
+    enabled: true
+    access_type: rss
+    url: http://www.golfchannel.com/rss/headlines/
+    scrape_link_hint: link_tags
+    scrape_text_tags: [p]
+    scrape_notes: Pull article links from page-level link tags and prioritize text blocks.
+
+  - name: golfwrx
+    category: golf
+    enabled: true
+    access_type: rss
+    url: https://www.golfwrx.com/feed/
+    rss_url: https://www.golfwrx.com/feed/
+    scrape_url: https://www.golfwrx.com/
+    scrape_text_tags: [p]
+    scrape_notes: Site is image-heavy; prioritize paragraph text over images.
+
+  - name: mygolfspy
+    category: golf
+    enabled: true
+    access_type: rss
+    url: https://mygolfspy.com/feed/
+
+  - name: yahoo_finance_top_stories
+    category: business_markets
+    enabled: true
+    access_type: rss
+    url: https://finance.yahoo.com/news/rssindex
+
+  - name: yahoo_finance_most_popular
+    category: business_markets
+    enabled: true
+    access_type: rss
+    url: http://finance.yahoo.com/rss/topstories
+
+  - name: yahoo_finance_morning_brief
+    category: business_markets
+    enabled: true
+    access_type: rss
+    url: https://finance.yahoo.com/rss/morning-brief

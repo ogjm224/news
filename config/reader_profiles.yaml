@@ -1,0 +1,33 @@
+active_profile: v1
+
+profiles:
+  - profile_id: v1
+    profile_name: King Arthur
+    description: Risk-aware synthesis.
+    is_default: true
+    priority_sections: [market, general, personal_interest]
+    interests:
+      - AI
+      - semiconductors
+      - geopolitics
+      - golf
+      - US Economy
+      - stocks
+      - x feed
+      - pop Culture
+      - sports 
+      - software
+      - family office
+      - austin martin / cars
+      - 1st edition books   
+    traits:
+      calmness: 5
+      skepticism: 4
+      optimism: 3
+      urgency_sensitivity: 3
+      novelty_appetite: 2
+      macro_orientation: 4
+      market_focus: 5
+      contrarian_appetite: 3
+      personal_interest_weight: 3
+      signal_to_noise_strictness: 5

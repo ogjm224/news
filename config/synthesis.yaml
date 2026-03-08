@@ -1,0 +1,104 @@
+﻿lookback_days: 5
+title_similarity_threshold: 0.9
+title_token_jaccard_threshold: 0.34
+min_shared_title_tokens: 2
+
+allow_undated_articles: false
+future_skew_hours: 12
+max_title_year_age: 1
+max_source_links_per_item: 6
+
+market_categories:
+  - business_markets
+personal_interest_categories:
+  - golf
+
+min_market_keyword_hits: 2
+market_keyword_margin: 2
+
+excluded_url_substrings:
+  - /cnn-underscored/
+  - /underscored/
+  - /coupons/
+  - /coupon/
+  - /deals/
+  - /deal/
+  - /shopping/
+  - /podcast/
+  - /podcasts/
+  - /audio/
+  - /video/
+  - /videos/
+  - /gallery/
+  - /galleries/
+  - /slideshow/
+  - /classifieds/
+  - lendingtree
+  - comparecards
+  - affiliates
+  - utm_
+  - ?iid=
+  - showbiz
+
+excluded_title_substrings:
+  - podcast
+  - coupon
+  - promo
+  - sponsored
+  - advertisement
+  - underscored
+  - gallery
+  - video
+  - "watch:"
+  - classifieds
+  - "best "
+  - sale
+
+market_keywords:
+  - market
+  - markets
+  - economy
+  - economic
+  - earnings
+  - revenue
+  - profit
+  - stocks
+  - equity
+  - bonds
+  - rates
+  - inflation
+  - gdp
+  - treasury
+  - federal reserve
+  - fed
+  - jobless
+  - unemployment
+  - oil
+  - commodities
+  - currency
+  - bank
+  - banking
+  - ipo
+  - merger
+  - acquisition
+
+non_market_keywords:
+  - lifestyle
+  - travel
+  - fashion
+  - celebrity
+  - sports
+  - golf
+  - entertainment
+  - recipe
+  - tv
+  - movie
+  - podcast
+  - coupon
+  - deal
+  - shopping
+  - baggage
+  - headphone
+  - contest
+  - rewards
+  - classifieds

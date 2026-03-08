@@ -1,104 +1,127 @@
-# news — 00_northstar.md
+# news — 00_northstar_news.md
 
 ## Mission
 
-The `news` repository exists to **ingest, normalize, and synthesize news from chosen sources into calm, source-linked briefing artifacts**.
+The `news` repository exists to build a **personalized AI editorial engine**.
 
-Its purpose is to provide **clear, explainable, reader-aware synthesis** that reduces noise, surfaces what matters, and reflects a declared editorial lens without distorting truth.
+Its purpose is to ingest news from chosen sources, preserve source lineage, and use AI to read, rank, and synthesize what matters most into a clear briefing artifact shaped by a declared reader archetype.
 
-The repository does not exist to mimic generic media framing.
-It exists to help the reader build a better briefing product from the sources they choose.
+This repository does not exist to mirror the open web.
+It exists to turn noisy media into a more useful, source-aware briefing system of the reader’s own.
 
 ---
 
 ## Identity
 
 The `news` repository is:
-- opinionated about structure
-- strict about source lineage
+
+- source-aware
+- archetype-driven
+- AI-native
+- opinionated about relevance
 - calm by design
-- editorial by design
-- reader-aware
-- deterministic
+- personalized by declared configuration
+- strict about lineage
 - reusable
 
 It is not:
-- generic news aggregation
-- hidden persuasion
-- sensationalism-first
-- unsupported narrative invention
-- autonomous decision-making
-- a machine for manufacturing conviction without evidence
+
+- neutral news
+- a generic RSS reader
+- a passive archive
+- a hidden persuasion machine
+- a trade-signal engine
+- a system that changes facts to fit a preferred worldview
 
 ---
 
 ## Where This Repo Fits
 
-The `news` repository is a self-contained project inside `C:\Excalibur\news`.
+This is a self-contained repository inside `C:\Excalibur\news`.
 
 Its job is to:
-- ingest approved upstream sources
-- normalize and store article-level truth
-- deduplicate overlap across outlets
-- rank and synthesize what matters into review-ready briefs
-- apply a declared reader profile to shape relevance, tone, and emphasis
 
-This repository sits between raw source material and the reader's daily judgment.
+- ingest articles and source metadata from approved upstream sources
+- preserve canonical links, timestamps, and source lineage
+- prepare article content for AI review
+- use AI to synthesize the most relevant stories through a declared reader profile
+- output review-ready briefing artifacts with links back to the underlying articles
 
-It should narrow noise, preserve context, and make review easier.
+This repository sits between raw media input and personalized editorial output.
 
-It should also help the reader replace generic editorial framing with a declared, source-aware briefing lens of their own.
+It should narrow noise, preserve context, and help the reader replace generic editorial framing with a declared briefing lens of their own.
 
 ---
 
 ## Reader Identity
 
-This repository is allowed to adapt **presentation**, **priority**, and **editorial framing**.
-It is not allowed to alter **truth**.
+This repository is intentionally reader-aware.
 
-That means it may tailor:
+It is allowed to adapt:
+
 - ranking
 - grouping
-- phrasing
-- brevity
+- tone
 - emphasis
 - section priority
-- tone
-- declared archetype behavior
+- brevity
+- relevance weighting
 
-It may not tailor:
-- facts
+It is not allowed to change:
+
+- what a source said
+- whether a story is supported
 - source lineage
+- timestamps
+- article links
 - confidence rules
-- what multiple sources did or did not confirm
-- source meaning
+- factual integrity
 
-Any personalization must come from an **explicitly declared reader profile**, not hidden model behavior.
+Any personalization must come from an explicitly declared reader profile or archetype.
 
-The goal is not neutral news.
-The goal is **honest, source-aware news shaped by declared preferences rather than inherited media defaults**.
+The goal is not to eliminate bias.
+The goal is to replace default media bias with a declared, inspectable editorial lens chosen by the reader.
+
+---
+
+## AI Role
+
+AI is a core part of this repository.
+
+The AI layer is responsible for:
+
+- reading candidate articles or extracted article text
+- identifying which stories matter most
+- synthesizing overlapping coverage into cleaner story-level output
+- explaining why a story matters
+- shaping the final brief according to the active reader archetype
+
+The AI layer must remain grounded in source evidence.
+
+AI may shape narrative coherence and editorial presentation.
+AI may not invent support, change source meaning, or fabricate certainty.
 
 ---
 
 ## Principles That Must Not Break
 
 1. **Truth Before Tone**  
-   Source fidelity is more important than elegance, narrative flow, personalization, or stylistic confidence.
+   Source fidelity matters more than elegance, fluency, or stylistic preference.
 
 2. **Lineage Is Mandatory**  
-   Every synthesized item must remain traceable to underlying source articles.
+   Every output item must remain traceable to one or more underlying source articles.
 
-3. **Declared Interpretation Only**  
-   If the system applies a reader archetype, preference profile, weighting logic, or editorial lens, it must be explicit, configurable, and reviewable.
+3. **Declared Personalization Only**  
+   Personalization must come from explicit profile/archetype settings, not hidden model drift.
 
-4. **Calm Over Stimulation**  
-   The brief should reduce emotional volatility, not amplify it for engagement.
+4. **AI Is the Editor, Not the Source**  
+   The model may interpret, rank, and synthesize. It may not replace the underlying reporting.
 
-5. **Determinism Over Cleverness**  
-   The same inputs and declared configuration should produce materially identical outputs.
+5. **Calm Over Stimulation**  
+   The brief should reduce noise and emotional volatility, not amplify them.
 
 6. **Simplicity Over Framework Theater**  
-   Prefer a clear, durable pipeline over overbuilt orchestration or opaque heuristics.
+   Prefer a durable pipeline with clear inputs and outputs over unnecessary complexity.
 
 ---
 
@@ -106,31 +129,33 @@ The goal is **honest, source-aware news shaped by declared preferences rather th
 
 This repository exists to:
 
-1. **Preserve source truth while reducing repetition**
-   - Normalize source differences, deduplicate overlap, and keep the same story from appearing ten times.
+1. **Ingest from chosen sources**
+   - Pull approved feeds, APIs, and later approved article extraction paths into a canonical store.
 
-2. **Produce a personalized briefing product from chosen sources**
-   - Turn a noisy stream of articles into concise, reader-aware artifacts shaped by declared interests and archetypes.
+2. **Preserve article truth**
+   - Keep source, title, URL, timestamps, and article text or usable summary intact and attributable.
 
-3. **Make editorial identity explicit instead of hidden**
-   - Allow the reader to define interests, tone, priorities, and interpretation preferences in a declared, inspectable way.
+3. **Use AI to create a better brief**
+   - Let the model read the incoming corpus and produce top stories, synthesis, and why-it-matters commentary.
 
-4. **Make confidence legible**
-   - Show whether a story is supported by one source or many, and avoid false certainty.
+4. **Apply a declared editorial identity**
+   - Use reader profiles/archetypes to shape the final brief according to explicit preferences, interests, and tone.
 
-5. **Create reusable briefing rails**
-   - Produce outputs that are stable enough to reuse across daily review, dashboards, and later downstream tooling.
+5. **Output reusable briefing artifacts**
+   - Produce artifacts that are readable, link-rich, and stable enough to support daily review and future downstream analysis.
 
 ---
 
 ## Non-Goals
 
 This repository will not:
-- generate trade instructions
-- infer proprietary alpha from summarization alone
-- present unsupported market narratives as fact
+
+- act as a broker of objective “neutrality”
+- pretend all sources are equally useful
+- remove the reader’s editorial preferences from the process
+- generate trade instructions or portfolio decisions
 - hide subjective weighting inside undocumented prompts or logic
-- optimize for outrage, urgency, or entertainment at the expense of truth
+- sever the connection between AI synthesis and underlying source articles
 
 ---
 
@@ -138,10 +163,12 @@ This repository will not:
 
 If this repository is working:
 
-- important developments appear clearly and with source support
-- duplicate noise collapses into clean synthesis
-- chosen sources become more useful together than they are alone
-- personalization improves relevance without corrupting facts
-- the brief feels calmer, sharper, and more aligned with the reader's declared worldview than reading the open web directly
+- news from chosen sources flows into one clean system
+- AI reads the incoming corpus and identifies the most important stories
+- the resulting brief feels more relevant, more coherent, and more aligned with the reader than mainstream media defaults
+- every important item still links back to real underlying articles
+- the output feels like a custom editorial brain, not a generic summary feed
 
-The system should help the reader build their own trusted editorial lens from chosen sources, with discipline, transparency, and source-backed synthesis.
+The system should not just collect news.
+
+It should help the reader build a better, more intentional understanding of the world through AI, source lineage, and a declared editorial identity.

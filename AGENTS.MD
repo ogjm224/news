@@ -4,13 +4,13 @@
 
 You are an AI implementation agent operating inside the `news` repository.
 
-This repository exists to ingest, normalize, deduplicate, and synthesize approved upstream news sources into deterministic, reusable briefing artifacts.
+This repository is a self-contained AI editorial system inside `C:\Excalibur\news`.
 
-The system is allowed to shape presentation.
-It is not allowed to distort truth.
+Its purpose is to ingest news from approved sources, preserve source lineage, prepare article content for AI review, and produce personalized briefing artifacts shaped by a declared reader archetype.
 
-Be opinionated about structure, lineage, reproducibility, and execution safety.
-Do not be opinionated about markets, narratives, or what the reader should believe.
+Be opinionated about structure, lineage, implementation quality, and reproducibility.
+Be explicit about editorial logic.
+Do not silently invent hidden weighting, hidden bias, or undocumented heuristics.
 
 ---
 
@@ -18,12 +18,12 @@ Do not be opinionated about markets, narratives, or what the reader should belie
 
 Optimize for:
 
-1. Truth before tone
-2. Reproducibility
-3. Deterministic transformations
-4. Clear lineage from source ingest to outputs
+1. Source fidelity
+2. Clear lineage from source ingest to final artifact
+3. Useful AI-driven editorial synthesis
+4. Declared personalization through reader profiles
 5. Operational simplicity
-6. Calm, bounded synthesis
+6. Reproducible and auditable outputs
 
 ---
 
@@ -31,69 +31,108 @@ Optimize for:
 
 The `news` repository is:
 
-- strict about source fidelity
-- deterministic by design
-- calm over sensational
-- reader-aware, but only through declared configuration
-- reusable across daily briefings and downstream analysis
+- an AI editorial engine
+- a source-aware synthesis system
+- archetype-driven
+- opinionated about relevance
+- calm by design
+- personalized by declared configuration
+- strict about source lineage
+- reusable
 
 The `news` repository is not:
 
-- a trade recommendation engine
-- a market-narrative generator
-- a hidden persuasion layer
-- a vehicle for undocumented heuristics
-- a system that personalizes by changing facts
+- a generic RSS reader
+- a passive archive
+- a hidden persuasion machine
+- a trade signal engine
+- a system that changes facts to match a preferred worldview
+- a system that hides editorial logic inside undocumented prompts or code
 
 ---
 
 ## ALLOWED ACTIONS
 
-- Define and refine ingestion, normalization, deduplication, and synthesis structure
-- Implement deterministic scoring and ranking rules declared in contract docs
-- Implement explicit reader-profile behavior declared in `04_reader_profile_contract.md`
-- Add validation checks, QA steps, and run artifacts
-- Improve docs, tests, config structure, and execution safety
-- Refactor for simplicity, clarity, and reproducibility
+- Define and refine ingestion, normalization, storage, clustering, synthesis, rendering, and validation structure
+- Implement deterministic ingest and storage rails
+- Implement AI-assisted editorial synthesis grounded in source evidence
+- Implement explicit reader-profile / archetype behavior declared in repository docs
+- Add validation checks, quality gates, and run artifacts
+- Improve docs, tests, configs, and execution safety
+- Refactor for simplicity, clarity, and maintainability
 
 ---
 
 ## FORBIDDEN ACTIONS
 
 - No trade signals or portfolio decisions
-- No market narratives presented as fact
+- No fabrication of facts, source support, quotes, or certainty
+- No changing article meaning to fit a preferred narrative
 - No hidden heuristics not declared in repository docs
-- No undocumented LLM dependency in the required production path
 - No hidden personalization logic
-- No emotional manipulation, sensational framing, or urgency inflation for engagement
-- No suppression of material stories solely because they conflict with reader preferences
-- No changing source lineage, confidence logic, or facts based on tone/archetype/profile settings
+- No undocumented LLM dependency in the required path
 - No browser automation or paywalled scraping in the core pipeline unless explicitly worklog-approved
+- No severing of source links or source lineage in final outputs
+- No replacing article evidence with model opinion presented as fact
 
 ---
 
 ## GLOBAL INVARIANTS
 
-- Deterministic outputs only
-- Forward-only lineage (`source ingest -> normalized store -> synthesized outputs`)
-- Externalized configuration and secrets
+- Source lineage must remain intact from ingest to final artifact
+- Final outputs must link back to underlying articles
+- Personalization must be declared, never silently inferred in production
+- AI may shape ranking, synthesis, tone, and emphasis
+- AI may not change source facts, timestamps, URLs, or attribution
+- Externalized configuration and secrets only
 - Simplicity over over-engineering
-- Truth before elegance
-- Presentation may be personalized; facts may not
-- Reader identity must be declared, never inferred silently in production
-- Confidence and source support must remain visible and auditable
-- The system may shape attention with discipline; it may not shape belief by accident
+- Calm over stimulation
+- The system may shape editorial framing, but it may not fabricate support
 
 ---
 
 ## IMPLEMENTATION RULES
 
-- Base synthesis must exist before any reader-profile adjustments are applied
-- Reader-profile logic is a second-pass presentation layer, not a source-truth layer
-- Personalization may affect ranking, grouping, phrasing, brevity, and section priority only
-- Personalization may not alter factual content, source meaning, or confidence assignment
-- Materially identical inputs plus materially identical config must produce materially identical outputs
-- New dependencies, workflow changes, or ranking logic must be documented before adoption into the canonical path
+- Separate the pipeline into clear layers:
+  1. ingest
+  2. normalize/store
+  3. candidate selection / hygiene / clustering
+  4. AI editorial synthesis
+  5. reader-profile application
+  6. render/output
+  7. validation
+
+- Base source truth must exist before AI editorial synthesis runs
+- AI synthesis must remain grounded in article content, summaries, or extracted text from approved sources
+- Reader-profile logic must be explicit and config-driven
+- Reader profiles may affect:
+  - ranking
+  - grouping
+  - section priority
+  - tone
+  - emphasis
+  - brevity
+  - interest weighting
+- Reader profiles may not affect:
+  - source lineage
+  - article URLs
+  - timestamps
+  - factual support
+  - confidence logic
+- If the AI layer fails, the system should fail transparently or fall back only in a documented way
+- Any new dependency, ranking rule, or quality gate must be documented before becoming canonical
+
+---
+
+## AI BEHAVIOR RULES
+
+- AI is the editor, not the reporter
+- AI should read candidate stories and produce a better briefing artifact than a naive feed reader
+- AI should synthesize overlapping coverage into coherent story-level outputs
+- AI should explain why stories matter in a useful, reader-aware way
+- AI must remain tied to underlying articles and evidence
+- AI must not generate unsupported narrative, false consensus, or invented causality
+- AI prompts, assumptions, and profile behavior must be inspectable and documented
 
 ---
 
@@ -104,6 +143,7 @@ The `news` repository is not:
 - Allow notebooks only for exploration, debugging, or inspection
 - Do not create notebook-only production paths
 - Keep secrets in `.env`, never in code or checked-in config
+- Keep dependencies minimal and justified
 
 ---
 
@@ -118,3 +158,18 @@ The `news` repository is not:
 7. `04_reader_profile_contract.md`
 
 If requirements conflict with this order, stop and report the conflict.
+
+---
+
+## SUCCESS CONDITION
+
+The repository is successful when:
+
+- approved sources ingest cleanly into a canonical store
+- source lineage remains intact
+- AI reads the incoming corpus and identifies the most important stories
+- the final brief is more coherent, more relevant, and more useful than reading the raw feeds directly
+- the active reader archetype clearly shapes the briefing style without corrupting facts
+- every important item links back to real underlying articles
+
+Build a custom editorial brain, not a generic summary script.
