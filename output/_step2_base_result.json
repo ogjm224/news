@@ -1,0 +1,406 @@
+{
+  "generated_at": "2026-03-08T07:15:24Z",
+  "window": {
+    "start": "2026-03-03T07:15:24Z",
+    "end": "2026-03-08T07:15:24Z"
+  },
+  "counts": {
+    "input": 329,
+    "recent": 72,
+    "deduped": 72,
+    "candidate_articles": 72,
+    "candidate_clusters": 72,
+    "items": 12,
+    "final_items": 12
+  },
+  "intro": "Jesse brief prioritizes AI while tracking Treasury yields, with 12 selected stories from 72 candidate clusters.",
+  "items": [
+    {
+      "headline": "Nintendo sues U.S. government seeking tariff refunds after Supreme Court ruling",
+      "synthesis": "Nintendo filed a lawsuit seeking refunds tied to presidential tariffs that a Supreme Court decision recently struck down. The action follows relief for thousands of other companies affected by the tariffs. Nintendo's suit seeks restitution now that parts of the tariff program have been invalidated by the court.",
+      "why_this_matters": "Large-scale tariff refunds could have material cash implications for businesses and government finances.",
+      "confidence": "low",
+      "source_links": [
+        "https://techcrunch.com/2026/03/06/nintendo-sues-the-u-s-government-for-a-refund-on-tariffs/"
+      ],
+      "section": "market",
+      "source_count": 1,
+      "feed_count": 1,
+      "publisher_domains": [
+        "techcrunch.com"
+      ],
+      "primary_publisher": "techcrunch.com",
+      "supporting_article_ids": [
+        "713197000e2b01d646590e5409e46a55245379ed3549a81cc4170d680d9b0b6d"
+      ],
+      "primary_entities": [
+        "Nintendo",
+        "Supreme Court",
+        "US"
+      ],
+      "story_tags": [
+        "policy"
+      ],
+      "cluster_quality": "weak",
+      "selection_mode": "primary"
+    },
+    {
+      "headline": "Planet Labs pauses release of some Middle East imagery as regional war continues",
+      "synthesis": "Planet Labs said it is placing a hold on releasing imagery of some parts of the Middle East as a regional war enters its second week. Planet operates a fleet of several hundred Earth-imaging satellites that typically image every landmass at least once per day. Its customers include think tanks, NGOs, news media, commercial users, and U.S. government and military agencies.",
+      "why_this_matters": "Limits on commercial satellite imagery can affect situational awareness for analysts, media, and commercial customers during conflicts.",
+      "confidence": "low",
+      "source_links": [
+        "https://arstechnica.com/space/2026/03/satellite-firm-pauses-imagery-after-revealing-irans-attacks-on-us-bases/"
+      ],
+      "section": "general",
+      "source_count": 1,
+      "feed_count": 1,
+      "publisher_domains": [
+        "arstechnica.com"
+      ],
+      "primary_publisher": "arstechnica.com",
+      "supporting_article_ids": [
+        "92bde8a3d2a180d090c246a339c4df14fff4509ea38f59c2efce25f6140c3ed9"
+      ],
+      "primary_entities": [
+        "Comments",
+        "Earth",
+        "Friday",
+        "Iran",
+        "Its"
+      ],
+      "story_tags": [
+        "economy",
+        "energy",
+        "geopolitics",
+        "technology"
+      ],
+      "cluster_quality": "weak",
+      "selection_mode": "primary"
+    },
+    {
+      "headline": "Valve says Steam Machine, Steam Frame, and Steam Controller are still slated to ship in 2026",
+      "synthesis": "The company acknowledged ongoing challenges from a memory shortage but said the shipping timeline remains for this year. Valve had earlier indicated the first half of the year as a target.",
+      "why_this_matters": "Confirmations of hardware shipping schedules matter for gaming demand forecasts and memory supply expectations.",
+      "confidence": "low",
+      "source_links": [
+        "https://www.theverge.com/games/890986/valve-steam-machine-frame-controller-delay-ram-memory"
+      ],
+      "section": "general",
+      "source_count": 1,
+      "feed_count": 1,
+      "publisher_domains": [
+        "theverge.com"
+      ],
+      "primary_publisher": "theverge.com",
+      "supporting_article_ids": [
+        "29f0b5d8a40ab8a37efaeae784d899c323b29163aea7a6f32970c98498cd4fa6"
+      ],
+      "primary_entities": [
+        "As",
+        "But Valve",
+        "Earlier",
+        "Friday",
+        "Read"
+      ],
+      "story_tags": [
+        "geopolitics",
+        "technology"
+      ],
+      "cluster_quality": "weak",
+      "selection_mode": "primary"
+    },
+    {
+      "headline": "Treasury Secretary Bessent forecasts largest bombing campaign yet, says Iran attempting 'economic chaos'",
+      "synthesis": "Treasury Secretary Scott Bessent said Iran fights on military and economic fronts as the U.S. launches its biggest bombing campaign against Iranian missile launchers and factories.",
+      "why_this_matters": "This is market-relevant context, with limited cross-publisher confirmation so far.",
+      "confidence": "low",
+      "source_links": [
+        "https://www.foxbusiness.com/media/treasury-secretary-bessent-forecasts-largest-bombing-campaign-yet-says-iran-attempting-economic-chaos"
+      ],
+      "section": "market",
+      "source_count": 1,
+      "feed_count": 1,
+      "publisher_domains": [
+        "foxbusiness.com"
+      ],
+      "primary_publisher": "foxbusiness.com",
+      "supporting_article_ids": [
+        "abe0b115bca7833a8036fae9cd4b255f52402526c2e2ff3c6c03867e6e35877b"
+      ],
+      "primary_entities": [
+        "Bessent",
+        "Iran",
+        "Iranian",
+        "Treasury Secretary Bessent",
+        "Treasury Secretary Scott"
+      ],
+      "story_tags": [
+        "economy",
+        "technology"
+      ],
+      "cluster_quality": "weak",
+      "selection_mode": "backfill"
+    },
+    {
+      "headline": "US weighs asking China to curb Russian, Iranian oil purchases",
+      "synthesis": "Treasury Secretary Bessent weighs pressing China on energy deals in Paris talks, seeking a shift from Russian and Iranian oil to U.S. energy amid trade negotiations.",
+      "why_this_matters": "This is market-relevant context, with limited cross-publisher confirmation so far.",
+      "confidence": "low",
+      "source_links": [
+        "https://www.foxbusiness.com/politics/us-weighs-asking-china-curb-russian-iranian-oil-purchases"
+      ],
+      "section": "market",
+      "source_count": 1,
+      "feed_count": 1,
+      "publisher_domains": [
+        "foxbusiness.com"
+      ],
+      "primary_publisher": "foxbusiness.com",
+      "supporting_article_ids": [
+        "08ce15d41dbf39416fbaa4767f6e8e4b73ffd41fb476c594829cd8da989ce9c3"
+      ],
+      "primary_entities": [
+        "China",
+        "Iranian",
+        "Paris",
+        "Russian",
+        "Treasury Secretary Bessent"
+      ],
+      "story_tags": [
+        "economy",
+        "energy",
+        "geopolitics"
+      ],
+      "cluster_quality": "weak",
+      "selection_mode": "backfill"
+    },
+    {
+      "headline": "Tech industry is in tariff hell, even if refunds are automated",
+      "synthesis": "It has been two weeks since the Supreme Court blocked Donald Trump's emergency tariffs , but an estimated 300,000 US businesses still have no idea if or when they will receive refunds. Economists have estimated that more than $175 billion was unlawfully collected, and the US could end up owing substantially more than that the longer the refund process is dragged out, since the US must pay back daily interest on the funds.",
+      "why_this_matters": "This is market-relevant context, with limited cross-publisher confirmation so far.",
+      "confidence": "low",
+      "source_links": [
+        "https://arstechnica.com/tech-policy/2026/03/tech-industry-is-in-tariff-hell-even-if-refunds-are-automated/"
+      ],
+      "section": "market",
+      "source_count": 1,
+      "feed_count": 1,
+      "publisher_domains": [
+        "arstechnica.com"
+      ],
+      "primary_publisher": "arstechnica.com",
+      "supporting_article_ids": [
+        "7150224f345088019d0e031dc29c31823d7d1d20c500deb29688c7339089ab1c"
+      ],
+      "primary_entities": [
+        "According",
+        "Cato Institute",
+        "Comments",
+        "Donald Trump",
+        "Economists"
+      ],
+      "story_tags": [
+        "geopolitics",
+        "policy",
+        "technology"
+      ],
+      "cluster_quality": "weak",
+      "selection_mode": "backfill"
+    },
+    {
+      "headline": "Paychecks keep rising for American workers, providing boost to household budgets",
+      "synthesis": "The February jobs report showed wage growth accelerated to 3.8% on an annual basis, outpacing economists' expectations despite an increase in the unemployment rate, BLS data showed. Current reporting is concentrated in a single publisher.",
+      "why_this_matters": "This is market-relevant context, with limited cross-publisher confirmation so far.",
+      "confidence": "low",
+      "source_links": [
+        "https://www.foxbusiness.com/economy/paychecks-keep-rising-american-workers-providing-boost-household-budgets"
+      ],
+      "section": "market",
+      "source_count": 1,
+      "feed_count": 1,
+      "publisher_domains": [
+        "foxbusiness.com"
+      ],
+      "primary_publisher": "foxbusiness.com",
+      "supporting_article_ids": [
+        "cea21b55cacd2089982eb19f2eb123e054aa670b7561d75a8c8bce60dd315203"
+      ],
+      "primary_entities": [
+        "American",
+        "BLS",
+        "Paychecks",
+        "The February"
+      ],
+      "story_tags": [
+        "economy",
+        "policy"
+      ],
+      "cluster_quality": "weak",
+      "selection_mode": "backfill"
+    },
+    {
+      "headline": "Former US trade chief Lighthizer resigns from Trump Media board",
+      "synthesis": "March 6 (Reuters) - Former United States trade representative Robert Lighthizer resigned from Trump Media & \u200cTechnology Group ( DJT )'s board of directors, effective Friday, \u200can SEC filing showed. During U.S.",
+      "why_this_matters": "This is market-relevant context, with limited cross-publisher confirmation so far.",
+      "confidence": "low",
+      "source_links": [
+        "https://finance.yahoo.com/news/former-us-trade-chief-lighthizer-224028270.html"
+      ],
+      "section": "market",
+      "source_count": 1,
+      "feed_count": 1,
+      "publisher_domains": [
+        "yahoo.com"
+      ],
+      "primary_publisher": "yahoo.com",
+      "supporting_article_ids": [
+        "dc7f91f3303deaa2c13eebdc9c7f34ab26605ae7e16e17048dbbf5e17129117c"
+      ],
+      "primary_entities": [
+        "AI",
+        "Alan Barona",
+        "Anhata Rooprai",
+        "Bengaluru",
+        "California"
+      ],
+      "story_tags": [
+        "energy",
+        "policy",
+        "technology"
+      ],
+      "cluster_quality": "weak",
+      "selection_mode": "backfill"
+    },
+    {
+      "headline": "Tech company at odds with Pentagon warns its AI possibly gained consciousness, Elon Musk gives 2-word response",
+      "synthesis": "SpaceX and Tesla CEO Elon Musk gave a two-word retort after Anthropic leader Dario Amodei claimed in an interview that he isn\u2019t sure if his company\u2019s AI models have gained consciousness. \"Anthropic CEO says Claude may or may not have gained consciousness, as the model has begun showing symptoms of anxiety,\" read a post on X by cryptocurrency-based prediction market Polymarket, to which Musk replied, \"He\u2019s projecting.\" The comment from Musk, who is also the founder of xAI, comes as Anthropic is at odds with the Pentagon over its use in a separate matter.",
+      "why_this_matters": "This is relevant context, but confirmation depth is still limited.",
+      "confidence": "low",
+      "source_links": [
+        "https://www.foxnews.com/politics/tech-company-odds-pentagon-warns-its-ai-possibly-gained-consciousness-elon-musk-issues-two-word-response"
+      ],
+      "section": "general",
+      "source_count": 1,
+      "feed_count": 1,
+      "publisher_domains": [
+        "foxnews.com"
+      ],
+      "primary_publisher": "foxnews.com",
+      "supporting_article_ids": [
+        "7dbceecb0255ee6a8aa0a37c1c745577ee0a36a0a85bf7f7fea3434038216ecf"
+      ],
+      "primary_entities": [
+        "Agencies",
+        "AI",
+        "Alex Nitzberg",
+        "Amodei",
+        "And"
+      ],
+      "story_tags": [
+        "economy",
+        "geopolitics",
+        "markets",
+        "technology"
+      ],
+      "cluster_quality": "weak",
+      "selection_mode": "backfill"
+    },
+    {
+      "headline": "'Utterly unaffordable': Study reveals how deep blue city's minimum wage law is ravaging key industry",
+      "synthesis": "A phased-in minimum wage hike in Los Angeles that will mandate up to $30 per hour for hotel workers, signed into law by mayor Karen Bass, is already causing problems for the hotel industry and putting the squeeze on the working-class demographic that minimum wage laws are purportedly intended to help. \" The bottom line is the city of Los Angeles has forced a wage and benefits package on hotels that is utterly unaffordable at a time when Californians and Americans are laser focused on affordability,\" Hotel Association of Los Angeles (HALA) President Dr.",
+      "why_this_matters": "This is relevant context, but confirmation depth is still limited.",
+      "confidence": "low",
+      "source_links": [
+        "https://www.foxnews.com/politics/utterly-unaffordable-study-reveals-deep-blue-citys-minimum-wage-law-ravaging-key-industry"
+      ],
+      "section": "general",
+      "source_count": 1,
+      "feed_count": 1,
+      "publisher_domains": [
+        "foxnews.com"
+      ],
+      "primary_publisher": "foxnews.com",
+      "supporting_article_ids": [
+        "9969f77212577cdd0a385f52a430db30d21091b0f35f05d601877bff30aadb3c"
+      ],
+      "primary_entities": [
+        "Americans",
+        "And",
+        "BASS",
+        "Californians",
+        "CITY"
+      ],
+      "story_tags": [
+        "economy",
+        "health",
+        "policy",
+        "technology"
+      ],
+      "cluster_quality": "weak",
+      "selection_mode": "backfill"
+    },
+    {
+      "headline": "Vizio accounts are becoming Walmart accounts",
+      "synthesis": "Walmart bought Vizio in 2024, and now it's taking the next steps to formally fold the TV maker into itself by phasing out Vizio accounts . Now, when you purchase a new Vizio TV, you'll be asked to sign in or create a Walmart account.",
+      "why_this_matters": "This is relevant context, but confirmation depth is still limited.",
+      "confidence": "low",
+      "source_links": [
+        "https://www.theverge.com/gadgets/891056/vizio-accounts-are-becoming-walmart-accounts"
+      ],
+      "section": "general",
+      "source_count": 1,
+      "feed_count": 1,
+      "publisher_domains": [
+        "theverge.com"
+      ],
+      "primary_publisher": "theverge.com",
+      "supporting_article_ids": [
+        "e4110e5ebd42c8c03ee916bd3fd250df1798bb62755b2f471553fc7013b6e680"
+      ],
+      "primary_entities": [
+        "According",
+        "Customers",
+        "Now",
+        "Read",
+        "The Verge"
+      ],
+      "story_tags": [
+        "technology"
+      ],
+      "cluster_quality": "weak",
+      "selection_mode": "backfill"
+    },
+    {
+      "headline": "Google's new command-line tool can plug OpenClaw into your Workspace data",
+      "synthesis": "The command line is hot again. For some people, command lines were never not hot, of course, but it's becoming more common now in the age of AI.",
+      "why_this_matters": "This is relevant context, but confirmation depth is still limited.",
+      "confidence": "low",
+      "source_links": [
+        "https://arstechnica.com/ai/2026/03/googles-new-command-line-tool-can-plug-openclaw-into-your-workspace-data/"
+      ],
+      "section": "general",
+      "source_count": 1,
+      "feed_count": 1,
+      "publisher_domains": [
+        "arstechnica.com"
+      ],
+      "primary_publisher": "arstechnica.com",
+      "supporting_article_ids": [
+        "eecebe3b2c6016fc582a660f13b5b620300ac056164142eff6b6691398b3b25b"
+      ],
+      "primary_entities": [
+        "AI",
+        "Calendar",
+        "CLI",
+        "Comments",
+        "Drive"
+      ],
+      "story_tags": [
+        "technology"
+      ],
+      "cluster_quality": "weak",
+      "selection_mode": "backfill"
+    }
+  ]
+}

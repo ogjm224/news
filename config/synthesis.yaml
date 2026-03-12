@@ -1,4 +1,4 @@
-﻿lookback_days: 5
+lookback_days: 5
 title_similarity_threshold: 0.9
 title_token_jaccard_threshold: 0.34
 min_shared_title_tokens: 2
@@ -7,14 +7,152 @@ allow_undated_articles: false
 future_skew_hours: 12
 max_title_year_age: 1
 max_source_links_per_item: 6
+ingest_max_items_per_source: 20
+discovery_timeout_seconds: 12
+discovery_retries: 1
+extraction_max_articles_per_source: 8
+extraction_max_articles_per_run: 60
+
+extraction_timeout_seconds: 8
+extraction_retries: 0
+extraction_min_text_chars: 400
+eligible_min_text_chars: 160
+front_page_min_text_chars: 280
+final_content_min_chars: 280
+summary_min_chars: 140
+max_final_content_chars: 12000
+candidate_max_text_chars: 4000
+brief_min_items: 12
+brief_max_items: 20
+clustering_body_jaccard_threshold: 0.12
+clustering_entity_overlap_min: 1
+clustering_time_window_hours: 72
+
+front_page_categories:
+  - top_breaking
+  - politics
+  - business_markets
+  - tech_science
+
+extraction_excluded_url_substrings:
+  - /coupon/
+  - /coupons/
+  - /deal/
+  - /deals/
+  - /shopping/
+  - /gallery/
+  - /galleries/
+  - /slideshow/
+  - /podcast/
+  - /podcasts/
+  - /audio/
+  - /forum/
+  - /forums/
+  - /tag/
+  - /tags/
+  - /topics/
+  - utm_
+  - ?iid=
+
+extraction_excluded_title_substrings:
+  - podcast
+  - coupon
+  - deal
+  - promo
+  - sponsored
+  - advertisement
+  - gallery
+  - video
+  - forum
+  - sale
+  - discount
+
+eligibility_excluded_url_substrings:
+  - /coupon/
+  - /coupons/
+  - /deal/
+  - /deals/
+  - /shopping/
+  - /podcast/
+  - /podcasts/
+  - /audio/
+  - /video/
+  - /videos/
+  - /gallery/
+  - /galleries/
+  - /slideshow/
+  - /forum/
+  - /forums/
+  - /classifieds/
+  - lendingtree
+  - comparecards
+  - affiliates
+  - utm_
+  - ?iid=
+
+eligibility_excluded_title_substrings:
+  - podcast
+  - coupon
+  - deal
+  - promo
+  - sponsored
+  - advertisement
+  - gallery
+  - video
+  - forum
+  - classifieds
+  - sale
+  - discount
 
 market_categories:
   - business_markets
+  - top_breaking
+  - tech_science
+  
 personal_interest_categories:
   - golf
+  - pga_tour
+  - nfl
+  - nba
 
 min_market_keyword_hits: 2
-market_keyword_margin: 2
+market_keyword_margin: 1
+market_required_high_signal_hits: 0
+market_macro_override_min_hits: 1
+market_excluded_title_substrings:
+  - "3 stocks"
+  - "stocks that"
+  - "should you buy"
+  - "price target"
+  - "monthly income"
+  - "dividend"
+  - "analyst says"
+  - "best stocks"
+market_blocked_categories:
+  - politics
+  - health_life
+  - sports
+  - golf
+  - local_az
+selection_publisher_cap: 3
+selection_core_min_source_count: 1
+selection_core_allowed_cluster_qualities:
+  - moderate
+  - strong
+selection_section_minimums:
+  market: 4
+  general: 10
+  personal_interest: 1
+selection_allow_weak_backfill: true
+quality_min_sentence_chars: 8
+quality_banned_summary_phrases:
+  - This remains preliminary until independent follow-up appears.
+  - Coverage is partially corroborated and still developing.
+quality_banned_why_phrases:
+  - This may be relevant context, but it currently has limited confirmation.
+  - This may matter for market context, but confirmation is still limited.
+  - This is relevant market context but still lightly confirmed.
+intro_max_words: 35
 
 excluded_url_substrings:
   - /cnn-underscored/
@@ -81,6 +219,56 @@ market_keywords:
   - ipo
   - merger
   - acquisition
+  - futures
+  - s&p
+  - nasdaq
+  - dow
+  - payrolls
+  - jobs report
+  - pmi
+  - ism
+  - wti
+  - brent
+  - opec
+  - trade
+  - tariff
+  - sanctions
+  - semiconductors
+  - chips
+  - guidance
+
+market_high_signal_keywords:
+  - inflation
+  - cpi
+  - pce
+  - federal reserve
+  - rate cut
+  - rate hike
+  - yield
+  - treasury
+  - earnings
+  - guidance
+  - credit
+
+market_macro_override_keywords:
+  - inflation
+  - cpi
+  - pce
+  - federal reserve
+  - rate cut
+  - rate hike
+  - yield
+  - treasury
+  - earnings
+  - guidance
+  - credit
+  - recession
+  - gdp
+  - debt
+  - default
+  - liquidity
+  - tariff
+  - sanctions
 
 non_market_keywords:
   - lifestyle

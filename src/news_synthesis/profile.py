@@ -1,4 +1,4 @@
-﻿from __future__ import annotations
+from __future__ import annotations
 
 import re
 from dataclasses import asdict, dataclass
@@ -80,6 +80,14 @@ class ProfiledSynthesisItem:
     confidence: str
     source_links: list[str]
     section: SectionName
+    source_count: int
+    feed_count: int
+    publisher_domains: list[str]
+    primary_publisher: str
+    supporting_article_ids: list[str]
+    primary_entities: list[str]
+    story_tags: list[str]
+    cluster_quality: str
     profile_rank_score: float
     rank_reasons: list[str]
 
@@ -89,6 +97,7 @@ class ProfiledSynthesisResult:
     generated_at: str
     window_start: str
     window_end: str
+    intro: str
     base_counts: dict[str, int]
     profile_id: str
     profile_name: str
@@ -119,6 +128,7 @@ class ProfiledSynthesisResult:
                 "start": self.window_start,
                 "end": self.window_end,
             },
+            "intro": self.intro,
             "base_counts": self.base_counts,
             "counts": self.counts(),
             "profile_id": self.profile_id,
@@ -261,11 +271,11 @@ def _style_item(
     notes: list[str] = []
     if traits.skepticism >= 4:
         if item.confidence == "high":
-            notes.append("Cross-source corroboration improves reliability, though details can still evolve.")
+            notes.append("Cross-publisher corroboration is strong, though details can still evolve.")
         elif item.confidence == "medium":
-            notes.append("Coverage is partially corroborated and still developing.")
-        elif "single-source reporting" not in synthesis_text.lower():
-            notes.append("This remains preliminary until independent follow-up appears.")
+            notes.append("Coverage has moderate cross-publisher corroboration.")
+        elif "single publisher" not in synthesis_text.lower():
+            notes.append("Independent confirmation depth remains limited.")
 
     if traits.urgency_sensitivity >= 4 and signal_counts["urgency"] > 0:
         notes.append("Timing sensitivity is elevated for this item.")
@@ -315,6 +325,14 @@ def apply_reader_profile(
                     confidence=item.confidence,
                     source_links=list(item.source_links),
                     section=item.section,
+                    source_count=item.source_count,
+                    feed_count=item.feed_count,
+                    publisher_domains=list(item.publisher_domains),
+                    primary_publisher=item.primary_publisher,
+                    supporting_article_ids=list(item.supporting_article_ids),
+                    primary_entities=list(item.primary_entities),
+                    story_tags=list(item.story_tags),
+                    cluster_quality=item.cluster_quality,
                     profile_rank_score=round(score, 4),
                     rank_reasons=reasons,
                 ),
@@ -340,6 +358,7 @@ def apply_reader_profile(
         generated_at=base_result.generated_at,
         window_start=base_result.window_start,
         window_end=base_result.window_end,
+        intro=base_result.intro,
         base_counts=base_result.counts(),
         profile_id=profile.profile_id,
         profile_name=profile.profile_name,
@@ -371,4 +390,3 @@ def run_profiled_synthesis(
     profile_registry = load_reader_profiles(profile_config_path)
     profile = profile_registry.get_active_profile()
     return apply_reader_profile(base_result, profile)
-

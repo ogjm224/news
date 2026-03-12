@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Jesse Daily Brief Viewer</title>
+<style>
+  :root {
+    --bg: #0b1020;
+    --panel: #121a2b;
+    --text: #e8edf7;
+    --muted: #9fb0cc;
+    --accent: #7fb3ff;
+    --border: #2a3754;
+    --chip: #22304f;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: Inter, Segoe UI, Arial, sans-serif;
+    background: linear-gradient(180deg, #0b1020, #101828 45%, #0b1020);
+    color: var(--text);
+  }
+  .wrap { max-width: 1150px; margin: 0 auto; padding: 24px; }
+  .hero {
+    background: rgba(18, 26, 43, 0.88);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 24px;
+    margin-bottom: 18px;
+    backdrop-filter: blur(8px);
+  }
+  h1,h2,h3,p { margin-top: 0; }
+  .sub { color: var(--muted); font-size: 14px; }
+  .grid { display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: 12px; margin: 18px 0; }
+  .stat { background: var(--panel); border: 1px solid var(--border); border-radius: 16px; padding: 14px; }
+  .stat .label { color: var(--muted); font-size: 12px; text-transform: uppercase; letter-spacing: .08em; }
+  .stat .value { font-size: 22px; font-weight: 700; margin-top: 8px; }
+  .toolbar { display: flex; gap: 12px; flex-wrap: wrap; margin: 18px 0 24px; align-items: center; }
+  input[type="search"] {
+    flex: 1 1 320px; background: var(--panel); color: var(--text);
+    border: 1px solid var(--border); border-radius: 12px; padding: 12px 14px; font-size: 14px;
+  }
+  .btns { display: flex; gap: 8px; flex-wrap: wrap; }
+  button {
+    background: var(--chip); color: var(--text); border: 1px solid var(--border);
+    border-radius: 999px; padding: 10px 14px; cursor: pointer;
+  }
+  button.active { background: var(--accent); color: #081120; border-color: transparent; font-weight: 700; }
+  .section { margin: 28px 0 10px; }
+  .section h2 { margin-bottom: 8px; text-transform: capitalize; }
+  .section-meta { color: var(--muted); font-size: 14px; margin-bottom: 12px; }
+  .cards { display: grid; grid-template-columns: 1fr; gap: 14px; }
+  .card { background: rgba(18, 26, 43, 0.88); border: 1px solid var(--border); border-radius: 18px; padding: 18px; }
+  .headline { font-size: 20px; line-height: 1.3; margin-bottom: 12px; }
+  .summary { line-height: 1.5; }
+  .why { color: var(--muted); margin-top: 12px; line-height: 1.5; }
+  .chips { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 14px; }
+  .chip { font-size: 12px; color: var(--muted); background: var(--chip); border: 1px solid var(--border); border-radius: 999px; padding: 6px 10px; }
+  .links { margin-top: 14px; display: flex; flex-direction: column; gap: 6px; }
+  .links a { color: var(--accent); text-decoration: none; word-break: break-word; }
+  .links a:hover { text-decoration: underline; }
+  details { margin-top: 12px; border-top: 1px solid var(--border); padding-top: 10px; }
+  summary { cursor: pointer; color: var(--muted); }
+  .empty { color: var(--muted); font-style: italic; padding: 8px 0; }
+  pre {
+    white-space: pre-wrap; word-break: break-word; background: #0c1425;
+    border: 1px solid var(--border); border-radius: 12px; padding: 14px; color: #c7d4ee;
+  }
+  @media (max-width: 900px) { .grid { grid-template-columns: repeat(2, minmax(0,1fr)); } }
+  @media (max-width: 640px) { .wrap { padding: 14px; } .grid { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="hero">
+      <h1>Jesse Daily Brief</h1>
+      <p id="intro"></p>
+      <p class="sub" id="meta"></p>
+
+      <div class="grid">
+        <div class="stat"><div class="label">Candidate Articles</div><div class="value" id="candidateArticles"></div></div>
+        <div class="stat"><div class="label">Candidate Clusters</div><div class="value" id="candidateClusters"></div></div>
+        <div class="stat"><div class="label">Final Items</div><div class="value" id="finalItems"></div></div>
+        <div class="stat"><div class="label">Profile</div><div class="value" id="profileName" style="font-size:18px;"></div></div>
+      </div>
+
+      <div class="toolbar">
+        <input id="search" type="search" placeholder="Search headlines, summaries, tags, entities…" />
+        <div class="btns">
+          <button data-filter="all" class="active">All</button>
+          <button data-filter="market">Market</button>
+          <button data-filter="general">General</button>
+          <button data-filter="personal_interest">Personal</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="sections"></div>
+
+    <div class="hero" style="margin-top:28px;">
+      <h2>Raw JSON Snapshot</h2>
+      <p class="sub">Useful for checking the shape your future website/API will consume.</p>
+      <details>
+        <summary>Show raw JSON</summary>
+        <pre id="rawJson"></pre>
+      </details>
+    </div>
+  </div>
+
+<script>
+const data = {"schema_version": "v2", "generated_at": "2026-03-08T06:05:42Z", "window": {"start": "2026-02-26T06:05:42Z", "end": "2026-03-08T06:05:42Z"}, "intro": "Jesse brief prioritizes AI while tracking rates, with 12 selected stories from 87 candidate clusters.", "sections": [{"name": "market", "items": []}, {"name": "general", "items": [{"headline": "Google's new command-line tool can plug OpenClaw into your Workspace data", "summary": "The command line is hot again. For some people, command lines were never not hot, of course, but it's becoming more common now in the age of AI. Independent confirmation depth remains limited.", "why_it_matters": "This is relevant context, but confirmation depth is still limited.", "confidence": "low", "source_links": ["https://arstechnica.com/ai/2026/03/googles-new-command-line-tool-can-plug-openclaw-into-your-workspace-data/"], "source_count": 1, "feed_count": 1, "publisher_domains": ["arstechnica.com"], "supporting_article_ids": ["eecebe3b2c6016fc582a660f13b5b620300ac056164142eff6b6691398b3b25b"], "primary_entities": ["AI", "Calendar", "CLI", "Comments", "Drive"], "story_tags": ["technology"], "cluster_quality": "weak"}, {"headline": "Anthropic CEO says its models may or may not be conscious; Elon Musk replies on X", "summary": "Anthropic leader Dario Amodei told The New York Times he isn\u0002t sure whether his company\u0002s AI models are conscious and said the firm is pursuing interpretability work to understand model activations. The company has noted activations that are \"evocative\" of emotions such as anxiety, and Amodei said the team is open to the idea that models could be conscious while acknowledging uncertainty. Independent confirmation depth remains limited.", "why_it_matters": "Public debate among AI executives shapes safety discussions and could influence policy and defense relationships.", "confidence": "low", "source_links": ["https://www.foxnews.com/politics/tech-company-odds-pentagon-warns-its-ai-possibly-gained-consciousness-elon-musk-issues-two-word-response"], "source_count": 1, "feed_count": 1, "publisher_domains": ["foxnews.com"], "supporting_article_ids": ["7dbceecb0255ee6a8aa0a37c1c745577ee0a36a0a85bf7f7fea3434038216ecf"], "primary_entities": ["Agencies", "AI", "Alex Nitzberg", "Amodei", "And"], "story_tags": ["economy", "geopolitics", "markets", "technology"], "cluster_quality": "weak"}, {"headline": "Pope Leo picks new Vatican ambassador to US as Trump tensions mount over policies", "summary": "People Leo XIV on Saturday announced the appointment of the Vatican’s new ambassador, Apostolic Nuncio, to the U.S. to help manage strained relations with the Trump administration. Independent confirmation depth remains limited.", "why_it_matters": "This is relevant context, but confirmation depth is still limited.", "confidence": "low", "source_links": ["https://www.foxnews.com/world/pope-leo-picks-new-vatican-ambassador-us-trump-tensions-mount-over-policies"], "source_count": 1, "feed_count": 1, "publisher_domains": ["foxnews.com"], "supporting_article_ids": ["585cfb09d25b555393bb2c5812be6cec84737ea576254686fd273bff0609ab2e"], "primary_entities": ["ACTION", "AFTER", "American", "Apostolic Nuncio", "Archbishop Paul"], "story_tags": ["geopolitics", "policy", "technology"], "cluster_quality": "weak"}, {"headline": "Trump says US 'doing very well' in Iran nearly 1 week into joint action against Tehran", "summary": "President Donald Trump on Friday said the U.S. is \"doing very well\" in Iran, nearly a week after the military coordinated with Israel on airstrikes in Tehran that left its supreme leader, Ayatollah Ali Khamenei, dead. Independent confirmation depth remains limited.", "why_it_matters": "This is relevant context, but confirmation depth is still limited.", "confidence": "low", "source_links": ["https://www.foxnews.com/politics/trump-says-us-doing-very-well-iran-nearly-1-week-joint-action-against-tehran"], "source_count": 1, "feed_count": 1, "publisher_domains": ["foxnews.com"], "supporting_article_ids": ["7fe2a4cb56784c8d45725fef48bee6adeeff4010c4fe953e24308eec136ff1c0"], "primary_entities": ["AFTER", "AGAIN", "All", "Americans", "And"], "story_tags": ["energy", "geopolitics", "policy", "sports", "technology"], "cluster_quality": "weak"}, {"headline": "Planet Labs pauses releasing imagery of parts of the Middle East amid regional war", "summary": "Planet Labs said it is placing a hold on releasing imagery of some areas of the Middle East as a regional conflict enters its second week. Planet operates hundreds of Earth-imaging satellites and serves customers across think tanks, NGOs, academia, commercial industries, and U.S. Independent confirmation depth remains limited.", "why_it_matters": "A pause in commercial imagery affects analysts, NGOs, and government customers who rely on near‑real‑time overhead data for crisis response and monitoring.", "confidence": "low", "source_links": ["https://arstechnica.com/space/2026/03/satellite-firm-pauses-imagery-after-revealing-irans-attacks-on-us-bases/"], "source_count": 1, "feed_count": 1, "publisher_domains": ["arstechnica.com"], "supporting_article_ids": ["92bde8a3d2a180d090c246a339c4df14fff4509ea38f59c2efce25f6140c3ed9"], "primary_entities": ["Comments", "Earth", "Friday", "Iran", "Its"], "story_tags": ["economy", "energy", "geopolitics", "technology"], "cluster_quality": "weak"}, {"headline": "The Corvette ZR1X hybrid can outpace million-dollar sports cars for a fraction of the cost", "summary": "When Elon Musk burst onto the scene in his little Tesla Roadster , it seemed a matter of time before electricity rendered gas-powered sports cars obsolete. It hasn't worked out that way. Independent confirmation depth remains limited.", "why_it_matters": "This is relevant context, but confirmation depth is still limited.", "confidence": "low", "source_links": ["https://www.theverge.com/transportation/888573/chevy-corvette-zr1x-hybrid-racing-performance"], "source_count": 1, "feed_count": 1, "publisher_domains": ["theverge.com"], "supporting_article_ids": ["1f19f7d0d323a4799d27dc8789269363f3de6fcedcc53df305c3fd64c9abe62d"], "primary_entities": ["Automakers", "Boxster", "Cayman", "CEO", "It"], "story_tags": ["energy", "markets"], "cluster_quality": "weak"}, {"headline": "American father hears missiles overhead while stranded in Dubai with kids and pregnant wife", "summary": "Christian Walker of Prairieville, Louisiana, has been in Dubai for two weeks while on a family vacation with his two young children and pregnant wife. Walker told Fox News Digital he has heard missiles and drones getting shot down at night, and the activity has been shaking his hotel as he's been trying to find a flight for his family to evacuate . Independent confirmation depth remains limited.", "why_it_matters": "This is relevant context, but confirmation depth is still limited.", "confidence": "low", "source_links": ["https://www.foxnews.com/travel/american-father-hears-missiles-overhead-stranded-dubai-kids-pregnant-wife"], "source_count": 1, "feed_count": 1, "publisher_domains": ["foxnews.com"], "supporting_article_ids": ["124e1000163aef5d533f98191a9af7c86c4d42c09af64f0f5216adad70d373ed"], "primary_entities": ["American", "Dubai"], "story_tags": ["economy", "technology"], "cluster_quality": "weak"}, {"headline": "Valve says Steam Machine, Steam Frame, and Steam Controller still planned to ship in 2026", "summary": "The company acknowledged challenges related to an ongoing memory shortage but told The Verge it did not intend to signal a cancellation or indefinite delay. Valve had previously indicated the hardware would ship in the first half of the year. Independent confirmation depth remains limited.", "why_it_matters": "Delays or confirmations from a major platform holder influence PC gaming hardware supply and related component demand.", "confidence": "low", "source_links": ["https://www.theverge.com/games/890986/valve-steam-machine-frame-controller-delay-ram-memory"], "source_count": 1, "feed_count": 1, "publisher_domains": ["theverge.com"], "supporting_article_ids": ["29f0b5d8a40ab8a37efaeae784d899c323b29163aea7a6f32970c98498cd4fa6"], "primary_entities": ["As", "But Valve", "Earlier", "Friday", "Read"], "story_tags": ["geopolitics", "technology"], "cluster_quality": "weak"}, {"headline": "Vizio accounts are becoming Walmart accounts", "summary": "Walmart bought Vizio in 2024, and now it's taking the next steps to formally fold the TV maker into itself by phasing out Vizio accounts . Now, when you purchase a new Vizio TV, you'll be asked to sign in or create a Walmart account. Independent confirmation depth remains limited.", "why_it_matters": "This is relevant context, but confirmation depth is still limited.", "confidence": "low", "source_links": ["https://www.theverge.com/gadgets/891056/vizio-accounts-are-becoming-walmart-accounts"], "source_count": 1, "feed_count": 1, "publisher_domains": ["theverge.com"], "supporting_article_ids": ["e4110e5ebd42c8c03ee916bd3fd250df1798bb62755b2f471553fc7013b6e680"], "primary_entities": ["According", "Customers", "Now", "Read", "The Verge"], "story_tags": ["technology"], "cluster_quality": "weak"}, {"headline": "TriZetto confirms more than 3.4 million people's health and personal data stolen in 2024 breach", "summary": "Health tech firm TriZetto confirmed that a 2024 cyberattack resulted in the theft of data for more than 3.4 million people. The company said it failed to detect the intrusion for almost a year before confirming the data compromise. Independent confirmation depth remains limited.", "why_it_matters": "Large-scale exposure of health data heightens risks for affected individuals and underscores persistent cybersecurity gaps in healthcare systems.", "confidence": "low", "source_links": ["https://techcrunch.com/2026/03/06/trizetto-confirms-3-4m-peoples-health-and-personal-data-was-stolen-during-breach/"], "source_count": 1, "feed_count": 1, "publisher_domains": ["techcrunch.com"], "supporting_article_ids": ["a86dd7eadd2686b367086bd8697bb3a47e2f260a027ea34e21003c4469531008"], "primary_entities": ["Health"], "story_tags": ["health", "technology"], "cluster_quality": "weak"}, {"headline": "California Rep Darrell Issa to retire, endorses Jim Desmond to succeed him", "summary": "Darrell Issa, R-Calif., will retire at the end of his current term and is backing San Diego County Supervisor Jim Desmond to succeed him, he confirmed to Fox News Friday. Issa’s seat is in California’s newly redrawn 48th District, which has been reshaped to favor Democrats under the state’s Prop 50. Independent confirmation depth remains limited.", "why_it_matters": "This is relevant context, but confirmation depth is still limited.", "confidence": "low", "source_links": ["https://www.foxnews.com/politics/california-rep-darrell-issa-retire-endorses-jim-desmond-succeed-him"], "source_count": 1, "feed_count": 1, "publisher_domains": ["foxnews.com"], "supporting_article_ids": ["3e9740b3f58b2d3d4af2b9d6526281108db33282dcc24955b1caffef30230957"], "primary_entities": ["AFTER", "America", "Ammar Campa", "Among", "And"], "story_tags": ["geopolitics", "policy", "technology"], "cluster_quality": "weak"}, {"headline": "'Utterly unaffordable': Study reveals how deep blue city's minimum wage law is ravaging key industry", "summary": "A phased-in minimum wage hike in Los Angeles that will mandate up to $30 per hour for hotel workers, signed into law by mayor Karen Bass, is already causing problems for the hotel industry and putting the squeeze on the working-class demographic that minimum wage laws are purportedly intended to help. \" The bottom line is the city of Los Angeles has forced a wage and benefits package on hotels that is utterly unaffordable at a time when Californians and Americans are laser focused on affordability,\" Hotel Association of Los Angeles (HALA) President Dr. Independent confirmation depth remains limited.", "why_it_matters": "This is relevant context, but confirmation depth is still limited.", "confidence": "low", "source_links": ["https://www.foxnews.com/politics/utterly-unaffordable-study-reveals-deep-blue-citys-minimum-wage-law-ravaging-key-industry"], "source_count": 1, "feed_count": 1, "publisher_domains": ["foxnews.com"], "supporting_article_ids": ["9969f77212577cdd0a385f52a430db30d21091b0f35f05d601877bff30aadb3c"], "primary_entities": ["Americans", "And", "BASS", "Californians", "CITY"], "story_tags": ["economy", "health", "policy", "technology"], "cluster_quality": "weak"}]}, {"name": "personal_interest", "items": []}], "counts": {"candidate_articles": 97, "candidate_clusters": 87, "final_items": 12, "market": 0, "general": 12, "personal_interest": 0, "input": 503, "recent": 97, "deduped": 97}, "profile": {"profile_id": "v1", "profile_name": "King Arthur", "applied_traits": {"calmness": 5, "skepticism": 4, "optimism": 3, "urgency_sensitivity": 3, "novelty_appetite": 2, "macro_orientation": 4, "market_focus": 5, "contrarian_appetite": 3, "personal_interest_weight": 3, "signal_to_noise_strictness": 5}, "priority_sections": ["market", "general", "personal_interest"], "interests": ["AI", "semiconductors", "geopolitics", "golf", "US Economy", "stocks", "x feed", "pop Culture", "sports", "software", "family office", "austin martin / cars", "1st edition books"]}};
+const sectionsContainer = document.getElementById('sections');
+const searchInput = document.getElementById('search');
+const filterButtons = [...document.querySelectorAll('button[data-filter]')];
+let activeFilter = 'all';
+
+document.getElementById('intro').textContent = data.intro || 'No intro available.';
+document.getElementById('meta').textContent =
+  `Generated: ${data.generated_at || 'n/a'} · Window: ${data.window?.start || 'n/a'} → ${data.window?.end || 'n/a'}`;
+document.getElementById('candidateArticles').textContent = data.counts?.candidate_articles ?? '—';
+document.getElementById('candidateClusters').textContent = data.counts?.candidate_clusters ?? '—';
+document.getElementById('finalItems').textContent = data.counts?.final_items ?? '—';
+document.getElementById('profileName').textContent = data.profile?.profile_name || '—';
+document.getElementById('rawJson').textContent = JSON.stringify(data, null, 2);
+
+function makeChip(text) {
+  const span = document.createElement('span');
+  span.className = 'chip';
+  span.textContent = text;
+  return span;
+}
+
+function itemText(item) {
+  return [
+    item.headline,
+    item.summary,
+    item.why_it_matters,
+    ...(item.primary_entities || []),
+    ...(item.story_tags || [])
+  ].join(' ').toLowerCase();
+}
+
+function render() {
+  const q = searchInput.value.trim().toLowerCase();
+  sectionsContainer.innerHTML = '';
+
+  (data.sections || []).forEach(section => {
+    if (activeFilter !== 'all' && section.name !== activeFilter) return;
+
+    const filteredItems = (section.items || []).filter(item => {
+      if (!q) return true;
+      return itemText(item).includes(q);
+    });
+
+    const sectionDiv = document.createElement('div');
+    sectionDiv.className = 'section';
+
+    const title = document.createElement('h2');
+    title.textContent = section.name.replaceAll('_', ' ');
+    sectionDiv.appendChild(title);
+
+    const meta = document.createElement('div');
+    meta.className = 'section-meta';
+    meta.textContent = `${filteredItems.length} shown`;
+    sectionDiv.appendChild(meta);
+
+    if (!filteredItems.length) {
+      const empty = document.createElement('div');
+      empty.className = 'empty';
+      empty.textContent = 'No items.';
+      sectionDiv.appendChild(empty);
+      sectionsContainer.appendChild(sectionDiv);
+      return;
+    }
+
+    const cards = document.createElement('div');
+    cards.className = 'cards';
+
+    filteredItems.forEach(item => {
+      const card = document.createElement('div');
+      card.className = 'card';
+
+      const headline = document.createElement('div');
+      headline.className = 'headline';
+      headline.textContent = item.headline || 'Untitled';
+      card.appendChild(headline);
+
+      const summary = document.createElement('div');
+      summary.className = 'summary';
+      summary.textContent = item.summary || '';
+      card.appendChild(summary);
+
+      const why = document.createElement('div');
+      why.className = 'why';
+      why.textContent = item.why_it_matters || '';
+      card.appendChild(why);
+
+      const chips = document.createElement('div');
+      chips.className = 'chips';
+      chips.appendChild(makeChip(`confidence: ${item.confidence || 'n/a'}`));
+      chips.appendChild(makeChip(`sources: ${item.source_count ?? 'n/a'}`));
+      chips.appendChild(makeChip(`quality: ${item.cluster_quality || 'n/a'}`));
+      if ((item.publisher_domains || []).length) {
+        chips.appendChild(makeChip(item.publisher_domains.join(', ')));
+      }
+      (item.primary_entities || []).slice(0,3).forEach(e => chips.appendChild(makeChip(`entity: ${e}`)));
+      (item.story_tags || []).slice(0,3).forEach(t => chips.appendChild(makeChip(`tag: ${t}`)));
+      card.appendChild(chips);
+
+      const links = document.createElement('div');
+      links.className = 'links';
+      (item.source_links || []).forEach((url, idx) => {
+        const a = document.createElement('a');
+        a.href = url;
+        a.target = '_blank';
+        a.rel = 'noopener noreferrer';
+        try {
+          const host = new URL(url).hostname.replace(/^www\./,'');
+          a.textContent = `Open source ${idx + 1} · ${host}`;
+        } catch {
+          a.textContent = `Open source ${idx + 1}`;
+        }
+        links.appendChild(a);
+      });
+      card.appendChild(links);
+
+      const details = document.createElement('details');
+      const summaryEl = document.createElement('summary');
+      summaryEl.textContent = 'Technical details';
+      details.appendChild(summaryEl);
+
+      const detailBody = document.createElement('pre');
+      detailBody.textContent = JSON.stringify({
+        supporting_article_ids: item.supporting_article_ids || [],
+        publisher_domains: item.publisher_domains || [],
+        primary_entities: item.primary_entities || [],
+        story_tags: item.story_tags || []
+      }, null, 2);
+      details.appendChild(detailBody);
+
+      card.appendChild(details);
+      cards.appendChild(card);
+    });
+
+    sectionDiv.appendChild(cards);
+    sectionsContainer.appendChild(sectionDiv);
+  });
+}
+
+searchInput.addEventListener('input', render);
+filterButtons.forEach(btn => {
+  btn.addEventListener('click', () => {
+    filterButtons.forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    activeFilter = btn.dataset.filter;
+    render();
+  });
+});
+
+render();
+</script>
+</body>
+</html>

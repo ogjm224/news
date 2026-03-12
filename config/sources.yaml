@@ -3,84 +3,98 @@ sources:
     category: top_breaking
     enabled: true
     access_type: rss
+    source_access_tier: rss_plus_extract
     url: http://rss.cnn.com/rss/cnn_topstories.rss
 
   - name: fox_latest
     category: top_breaking
     enabled: true
     access_type: rss
+    source_access_tier: rss_plus_extract
     url: https://feeds.foxnews.com/foxnews/latest
 
   - name: cnn_politics
     category: politics
     enabled: true
     access_type: rss
+    source_access_tier: rss_plus_extract
     url: http://rss.cnn.com/rss/cnn_allpolitics.rss
 
   - name: fox_politics
     category: politics
     enabled: true
     access_type: rss
+    source_access_tier: rss_plus_extract
     url: https://feeds.foxnews.com/foxnews/politics
 
   - name: cnn_business_markets
     category: business_markets
     enabled: true
     access_type: rss
+    source_access_tier: rss_plus_extract
     url: http://rss.cnn.com/rss/money_latest.rss
 
   - name: fox_business
     category: business_markets
     enabled: true
     access_type: rss
+    source_access_tier: rss_plus_extract
     url: https://feeds.foxnews.com/foxnews/business
 
   - name: cnn_tech_science
     category: tech_science
     enabled: true
     access_type: rss
+    source_access_tier: rss_plus_extract
     url: http://rss.cnn.com/rss/cnn_tech.rss
 
   - name: fox_science_tech
     category: tech_science
     enabled: true
     access_type: rss
+    source_access_tier: rss_plus_extract
     url: https://feeds.foxnews.com/foxnews/scitech
 
   - name: cnn_health_life
     category: health_life
     enabled: true
     access_type: rss
+    source_access_tier: rss_plus_extract
     url: http://rss.cnn.com/rss/cnn_health.rss
 
   - name: fox_lifestyle
     category: health_life
     enabled: true
     access_type: rss
+    source_access_tier: rss_plus_extract
     url: https://feeds.foxnews.com/foxnews/lifestyle
 
   - name: ars_technica
     category: tech_science
     enabled: true
     access_type: rss
+    source_access_tier: rss_plus_extract
     url: http://feeds.arstechnica.com/arstechnica/index
 
   - name: hacker_news
     category: tech_science
     enabled: true
     access_type: rss
+    source_access_tier: rss_only
     url: https://news.ycombinator.com/rss
 
   - name: the_verge
     category: tech_science
     enabled: true
     access_type: rss
+    source_access_tier: rss_plus_extract
     url: https://www.theverge.com/rss/index.xml
 
   - name: golf_channel_news
     category: golf
     enabled: true
     access_type: rss
+    source_access_tier: rss_plus_extract
     url: http://www.golfchannel.com/rss/headlines/
     scrape_link_hint: link_tags
     scrape_text_tags: [p]
@@ -90,6 +104,7 @@ sources:
     category: golf
     enabled: true
     access_type: rss
+    source_access_tier: rss_plus_extract
     url: https://www.golfwrx.com/feed/
     rss_url: https://www.golfwrx.com/feed/
     scrape_url: https://www.golfwrx.com/
@@ -100,22 +115,106 @@ sources:
     category: golf
     enabled: true
     access_type: rss
+    source_access_tier: rss_plus_extract
     url: https://mygolfspy.com/feed/
 
   - name: yahoo_finance_top_stories
     category: business_markets
     enabled: true
     access_type: rss
+    source_access_tier: rss_plus_extract
     url: https://finance.yahoo.com/news/rssindex
 
   - name: yahoo_finance_most_popular
     category: business_markets
     enabled: true
     access_type: rss
+    source_access_tier: rss_plus_extract
     url: http://finance.yahoo.com/rss/topstories
 
   - name: yahoo_finance_morning_brief
     category: business_markets
     enabled: true
     access_type: rss
+    source_access_tier: rss_plus_extract
     url: https://finance.yahoo.com/rss/morning-brief
+
+  - name: espn_top_headlines
+    category: sports
+    enabled: true
+    access_type: rss
+    source_access_tier: rss_plus_extract
+    url: https://www.espn.com/espn/rss/news
+
+  - name: pga_tour_news
+    category: golf
+    enabled: true
+    access_type: rss
+    source_access_tier: rss_plus_extract
+    url: https://www.pgatour.com/feeds/news.rss
+    scrape_text_tags: [p, div]
+    scrape_notes: PGA sites often embed videos; prioritize text summaries and headlines.
+
+  - name: korn_ferry_tour_news
+    category: golf
+    enabled: true
+    access_type: rss
+    source_access_tier: rss_plus_extract
+    url: https://www.pgatour.com/korn-ferry-tour/feeds/news.rss
+    scrape_text_tags: [p, div]
+    scrape_notes: Focus on tournament recaps and player stats; similar to PGA layout.
+
+  - name: phoenix_business_journal
+    category: local_az
+    enabled: true
+    access_type: rss
+    source_access_tier: rss_plus_extract
+    url: https://www.bizjournals.com/phoenix/rss/headlines
+    scrape_notes: Paywall possible for full articles; use extraction for summaries if subscribed.
+
+  - name: reuters_top_news
+    category: top_breaking
+    enabled: true
+    access_type: rss
+    source_access_tier: rss_plus_extract
+    url: https://feeds.reuters.com/reuters/topNews
+
+  - name: bbc_world_news
+    category: top_breaking
+    enabled: true
+    access_type: rss
+    source_access_tier: rss_plus_extract
+    url: http://feeds.bbci.co.uk/news/rss.xml
+
+  - name: bloomberg_business
+    category: business_markets
+    enabled: true
+    access_type: rss
+    source_access_tier: rss_plus_extract
+    url: https://feeds.bloomberg.com/news/top.rss
+    scrape_notes: High-volume finance updates; filter for market-specific items.
+
+  - name: wsj_world_news
+    category: top_breaking
+    enabled: true
+    access_type: rss
+    source_access_tier: rss_plus_extract
+    url: https://feeds.wsj.com/xml/rss/3_7085.xml
+    scrape_notes: Potential paywall; good for in-depth global/business crossover.
+
+  - name: arizona_republic
+    category: local_az
+    enabled: true
+    access_type: rss
+    source_access_tier: rss_plus_extract
+    url: https://www.azcentral.com/rss/
+    scrape_text_tags: [p]
+    scrape_notes: Local Phoenix news; includes business, events, and AZ politics.
+
+  - name: techcrunch
+    category: tech_science
+    enabled: true
+    access_type: rss
+    source_access_tier: rss_plus_extract
+    url: https://techcrunch.com/feed/
+    scrape_notes: Startup and AI-heavy; prioritize recent posts for timeliness.

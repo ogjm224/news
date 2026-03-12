@@ -1,42 +1,41 @@
-# news — 01_INDEX.md
+# news - 01_index.md
 
 ## Purpose
 
 This file is the navigation and authority hub for the `news` repository.
 
-Use it to locate source-of-truth documents and reduce ambiguity before implementation.
+Use it to locate source-of-truth documents before implementation.
 
 ---
 
 ## Order of Authority (Read in This Order)
 
-1. `AGENTS.md`  
-   Execution constraints, boundaries, and invariants.
+1. `AGENTS.md`
+2. `docs/00_northstar_news.md`
+3. Active Worklog (if present)
+4. `docs/02_environment.md`
+5. `docs/03_news_contract.md`
+6. `docs/04_reader_profile_contract.md`
+7. `docs/06_news_architecture_v2.md` (architecture direction and implementation target)
 
-2. `00_northstar.md`  
-   Mission, identity, and non-negotiable principles.
-
-3. Active Worklog (if present)  
-   Authorized scope for the current change.
-
-4. `02_environment.md`  
-   Runtime assumptions and tooling boundaries.
-
-5. `03_news_contract.md`  
-   Canonical input/output contract, schema, and acceptance checks.
-
-6. `04_reader_profile_contract.md`  
-   Canonical reader-profile contract, allowed personalization boundaries, and archetype rules.
+If there is any conflict, higher order wins.
 
 ---
 
 ## Repository Documentation Map
 
-- Governance and intent: repository root docs (`AGENTS.md`, `00_northstar.md`, `01_INDEX.md`)
-- Runtime assumptions: `02_environment.md`
-- News rail contract: `03_news_contract.md`
-- Reader identity and personalization rails: `04_reader_profile_contract.md`
-- Historical change scope (optional): `worklogs/Completed/`
+- Governance and intent:
+  - `AGENTS.md`
+  - `docs/00_northstar_news.md`
+  - `docs/01_index.md`
+- Runtime assumptions:
+  - `docs/02_environment.md`
+- Canonical pipeline contract:
+  - `docs/03_news_contract.md`
+- Reader profile personalization boundaries:
+  - `docs/04_reader_profile_contract.md`
+- V2 architecture reference:
+  - `docs/06_news_architecture_v2.md`
 
 ---
 
@@ -44,14 +43,5 @@ Use it to locate source-of-truth documents and reduce ambiguity before implement
 
 - Current: none declared
 - Only one Active Worklog should exist at a time
-- If no Active Worklog is present, keep changes small and explicitly scoped
+- If no Active Worklog is present, keep changes explicit and bounded
 
----
-
-## How to Use This Index
-
-**Humans**
-- Start here, then follow authority order before implementation.
-
-**Agents**
-- Stop if a request violates invariants or conflicts with higher-authority docs.

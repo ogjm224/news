@@ -32,13 +32,20 @@ def _section_order(profiled_result: ProfiledSynthesisResult | None) -> list[str]
 
 
 def _item_to_payload(item: Any) -> dict[str, Any]:
+    source_count = int(getattr(item, "source_count", len(getattr(item, "source_links", [])) or 1))
     return {
         "headline": item.headline,
-        "synthesis": item.synthesis,
-        "why_this_matters": item.why_this_matters,
+        "summary": item.synthesis,
+        "why_it_matters": item.why_this_matters,
         "confidence": item.confidence,
         "source_links": list(item.source_links),
-        "section": item.section,
+        "source_count": source_count,
+        "feed_count": int(getattr(item, "feed_count", source_count)),
+        "publisher_domains": list(getattr(item, "publisher_domains", [])),
+        "supporting_article_ids": list(getattr(item, "supporting_article_ids", [])),
+        "primary_entities": list(getattr(item, "primary_entities", [])),
+        "story_tags": list(getattr(item, "story_tags", [])),
+        "cluster_quality": getattr(item, "cluster_quality", "weak"),
     }
 
 
@@ -48,33 +55,44 @@ def build_render_payload(
 ) -> dict[str, Any]:
     section_order = _section_order(profiled_result)
     effective_items = profiled_result.items if profiled_result is not None else base_result.items
+    intro = (profiled_result.intro if profiled_result is not None else base_result.intro) or ""
 
     grouped: dict[str, list[dict[str, Any]]] = {section: [] for section in section_order}
     for item in effective_items:
-        if item.section not in grouped:
-            grouped[item.section] = []
-        grouped[item.section].append(_item_to_payload(item))
+        section_name = item.section
+        if section_name not in grouped:
+            grouped[section_name] = []
+        grouped[section_name].append(_item_to_payload(item))
 
     sections = [{"name": section, "items": grouped.get(section, [])} for section in section_order]
 
     counts = {
-        "input": base_result.input_count,
-        "recent": base_result.recent_count,
-        "deduped": base_result.deduped_count,
-        "items": len(effective_items),
+        "candidate_articles": base_result.candidate_article_count,
+        "candidate_clusters": base_result.candidate_cluster_count,
+        "final_items": len(effective_items),
         "market": len(grouped.get("market", [])),
         "general": len(grouped.get("general", [])),
         "personal_interest": len(grouped.get("personal_interest", [])),
+        "input": base_result.input_count,
+        "recent": base_result.recent_count,
+        "deduped": base_result.deduped_count,
     }
+    if not intro:
+        intro = (
+            f"This brief selects {counts['final_items']} stories from "
+            f"{counts['candidate_clusters']} candidate clusters and {counts['candidate_articles']} eligible articles."
+        )
 
     payload: dict[str, Any] = {
+        "schema_version": "v2",
         "generated_at": base_result.generated_at,
         "window": {
             "start": base_result.window_start,
             "end": base_result.window_end,
         },
-        "counts": counts,
+        "intro": intro,
         "sections": sections,
+        "counts": counts,
     }
 
     if profiled_result is not None:
@@ -101,12 +119,28 @@ def _render_source_links(source_links: list[str]) -> str:
 
 def render_markdown(payload: dict[str, Any]) -> str:
     lines: list[str] = ["# Daily Brief", ""]
+    lines.append(f"Schema: {payload.get('schema_version', 'v2')}")
     lines.append(f"Generated: {payload['generated_at']}")
     lines.append(f"Window: {payload['window']['start']} -> {payload['window']['end']}")
 
     profile = payload.get("profile")
     if profile:
         lines.append(f"Active Profile: {profile['profile_name']} ({profile['profile_id']})")
+
+    intro = str(payload.get("intro") or "").strip()
+    if intro:
+        lines.append("")
+        lines.append(intro)
+
+    counts = payload.get("counts", {})
+    if counts:
+        lines.append("")
+        lines.append(
+            "Counts: "
+            f"candidate_articles={counts.get('candidate_articles', 0)} "
+            f"candidate_clusters={counts.get('candidate_clusters', 0)} "
+            f"final_items={counts.get('final_items', 0)}"
+        )
 
     lines.append("")
 
@@ -122,9 +156,11 @@ def render_markdown(payload: dict[str, Any]) -> str:
             continue
 
         for item in items:
-            lines.append(f"- **{item['headline']}** (`{item['confidence']}`)")
-            lines.append(f"  {item['synthesis']}")
-            lines.append(f"  Why this matters: {item['why_this_matters']}")
+            lines.append(
+                f"- **{item['headline']}** (`{item['confidence']}` | sources={item['source_count']} | quality={item.get('cluster_quality', 'weak')})"
+            )
+            lines.append(f"  {item['summary']}")
+            lines.append(f"  Why it matters: {item['why_it_matters']}")
             lines.append(f"  Sources: {_render_source_links(item['source_links'])}")
 
         lines.append("")
